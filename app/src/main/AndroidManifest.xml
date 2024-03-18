@@ -1,0 +1,36 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/carlos"
+        android:label="@string/App"
+        android:roundIcon="@drawable/carlos"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CarlosFishingSuppliesIMS"
+        tools:targetApi="31">
+
+        <!-- LandingPage as the launcher activity -->
+        <activity
+            android:name=".LandingPage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Other activities -->
+        <activity
+            android:name=".Splash"
+            android:exported="false"
+            android:theme="@style/Theme.CarlosFishingSuppliesIMS" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>
