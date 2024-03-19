@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ProductsFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:backgroundTint="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search products"
-        android:layout_marginTop="50dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
 
         tools:listitem="@layout/product_item"
@@ -23,6 +14,15 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/add" />
 
 
 </FrameLayout>

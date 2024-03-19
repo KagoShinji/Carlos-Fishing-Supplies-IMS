@@ -12,8 +12,8 @@ import com.example.carlosfishingsuppliesims.models.Product
 import com.google.android.material.snackbar.Snackbar
 
 class MyAdapter(
-    private val editClickListener: (Int) -> Unit, // Lambda function to handle edit click
-    private val deleteClickListener: (Int) -> Unit // Lambda function to handle delete click
+    private val editClickListener: (Int) -> Unit,
+    private val deleteClickListener: (String) -> Unit // Pass product key for delete action
 ) : RecyclerView.Adapter<MyAdapter.ProductViewHolder>() {
 
     private var productList: MutableList<Product> = mutableListOf()
@@ -38,13 +38,6 @@ class MyAdapter(
         notifyDataSetChanged()
     }
 
-    fun deleteProduct(position: Int) {
-        if (position in 0 until productList.size) {
-            productList.removeAt(position)
-            notifyItemRemoved(position)
-        }
-    }
-
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val keyTextView: TextView = itemView.findViewById(R.id.product_id)
         private val nameTextView: TextView = itemView.findViewById(R.id.productName)
@@ -64,7 +57,7 @@ class MyAdapter(
             nameTextView.text = product.name
             descriptionTextView.text = product.description
             quantityTextView.text = product.quantity.toString()
-            unitPriceTextView.text = product.unitPrice.toString() // Display unit price as string
+            unitPriceTextView.text = product.unitPrice // Display unit price as string
         }
 
         private fun showPopupMenu(view: View) {
@@ -80,8 +73,9 @@ class MyAdapter(
                         true
                     }
                     R.id.deleteProduct -> {
-                        // Call deleteClickListener with adapter position when Delete Product is clicked
-                        deleteClickListener(adapterPosition)
+                        // Call deleteClickListener with product key when Delete Product is clicked
+                        val productKey = productList[adapterPosition].key.toString()
+                        deleteClickListener(productKey)
                         true
                     }
                     else -> false
