@@ -12,8 +12,8 @@
         </item>
 
         <item
-            android:id="@+id/nav_orders"
-            android:title="Orders"
+            android:id="@+id/nav_sales"
+            android:title="Sales"
             android:icon="@drawable/orders">
 
         </item>
@@ -33,24 +33,8 @@
             android:title="Report"
             android:icon="@drawable/stats">
         </item>
-        <item
-            android:id="@+id/nav_about"
-            android:title="About Us"
-            android:icon="@drawable/about">
-        </item>
-        <item
-            android:id="@+id/nav_contact"
-            android:title="Contact Us"
-            android:icon="@drawable/contact">
-        </item>
 
     </group>
-
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings"
-        android:icon="@drawable/settings">
-    </item>
 
     <item
         android:id="@+id/nav_logout"

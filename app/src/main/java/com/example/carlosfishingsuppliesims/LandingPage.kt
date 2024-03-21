@@ -41,10 +41,9 @@ class LandingPage : AppCompatActivity() {
 
             when (menuItem.itemId) {
                 R.id.nav_home -> replaceFragment(HomeFragment(), menuItem.title.toString())
-                R.id.nav_orders -> replaceFragment(OrdersFragment(), menuItem.title.toString())
+                R.id.nav_sales -> replaceFragment(SalesFragment(), menuItem.title.toString())
                 R.id.nav_products -> replaceFragment(ProductsFragment(), menuItem.title.toString())
                 R.id.nav_quantity -> replaceFragment(QuantityFragment(), menuItem.title.toString())
-                R.id.nav_settings -> replaceFragment(SettingsFragment(), menuItem.title.toString())
                 R.id.nav_logout -> logout()
             }
 

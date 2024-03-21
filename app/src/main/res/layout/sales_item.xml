@@ -25,13 +25,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product ID: "
+                android:text="Sales ID: "
                 android:textColor="@color/blue"
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/product_id"
+                android:id="@+id/salesID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/productName"
+                android:id="@+id/productsList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -76,17 +76,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description: "
+                android:text="Quantity: "
                 android:textColor="@color/blue"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/productDescription"
+                android:id="@+id/salesQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Stark"
+                android:text="20"
                 android:textColor="@color/blue"
                 android:textSize="20sp"/>
 
@@ -101,17 +101,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantity: "
+                android:text="Date Time: "
                 android:textColor="@color/blue"
                 android:textSize="26sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/quantity"
+                android:id="@+id/salesDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="20"
+                android:text="Stark"
                 android:textColor="@color/blue"
                 android:textSize="20sp"/>
 
@@ -132,7 +132,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/productPrice"
+                android:id="@+id/salesPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

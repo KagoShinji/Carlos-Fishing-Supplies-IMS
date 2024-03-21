@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- dialog_add_product.xml -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,13 +11,15 @@
         android:id="@+id/editTextProductName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product Name" />
+        android:hint="Product Name"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextProductDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Product Description" />
+        android:hint="Product Description"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextProductQuantity"
@@ -28,6 +32,22 @@
         android:id="@+id/editTextProductUnitPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Unit Price"/>
+        android:hint="Unit Price"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/buttonAddProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Product" />
+
+    <TextView
+        android:id="@+id/close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+    </TextView>
 
 </LinearLayout>

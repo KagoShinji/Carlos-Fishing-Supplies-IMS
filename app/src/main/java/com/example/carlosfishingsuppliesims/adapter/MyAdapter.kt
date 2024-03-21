@@ -3,18 +3,12 @@ package com.example.carlosfishingsuppliesims.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carlosfishingsuppliesims.R
 import com.example.carlosfishingsuppliesims.models.Product
-import com.google.android.material.snackbar.Snackbar
 
-class MyAdapter(
-    private val editClickListener: (Int) -> Unit,
-    private val deleteClickListener: (String) -> Unit // Pass product key for delete action
-) : RecyclerView.Adapter<MyAdapter.ProductViewHolder>() {
+class MyAdapter : RecyclerView.Adapter<MyAdapter.ProductViewHolder>() {
 
     private var productList: MutableList<Product> = mutableListOf()
 
@@ -44,12 +38,6 @@ class MyAdapter(
         private val descriptionTextView: TextView = itemView.findViewById(R.id.productDescription)
         private val quantityTextView: TextView = itemView.findViewById(R.id.quantity)
         private val unitPriceTextView: TextView = itemView.findViewById(R.id.productPrice)
-        private val moreImageView: ImageView = itemView.findViewById(R.id.more)
-
-        init {
-            // Set click listener for the "more" ImageView
-            moreImageView.setOnClickListener { showPopupMenu(it) }
-        }
 
         fun bind(product: Product) {
             // Bind product data to TextViews
@@ -58,36 +46,6 @@ class MyAdapter(
             descriptionTextView.text = product.description
             quantityTextView.text = product.quantity.toString()
             unitPriceTextView.text = product.unitPrice // Display unit price as string
-        }
-
-        private fun showPopupMenu(view: View) {
-            // Create and show PopupMenu for the "more" ImageView
-            val popupMenu = PopupMenu(view.context, view)
-            popupMenu.inflate(R.menu.products_menu) // Inflate menu resource
-            popupMenu.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.editProduct -> {
-                        // Call editClickListener with adapter position when Edit Product is clicked
-                        editClickListener(adapterPosition)
-                        showSnackBar("Edit clicked")
-                        true
-                    }
-                    R.id.deleteProduct -> {
-                        // Call deleteClickListener with product key when Delete Product is clicked
-                        val productKey = productList[adapterPosition].key.toString()
-                        deleteClickListener(productKey)
-                        true
-                    }
-                    else -> false
-                }
-            }
-            popupMenu.show()
-        }
-
-        private fun showSnackBar(message: String) {
-            // Show Snackbar with the given message
-            val snackbar = Snackbar.make(itemView, message, Snackbar.LENGTH_SHORT)
-            snackbar.show()
         }
     }
 }
