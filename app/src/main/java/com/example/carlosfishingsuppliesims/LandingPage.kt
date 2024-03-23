@@ -1,5 +1,6 @@
 package com.example.carlosfishingsuppliesims
 
+import SalesFragment
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -44,7 +45,7 @@ class LandingPage : AppCompatActivity() {
                 R.id.nav_sales -> replaceFragment(SalesFragment(), menuItem.title.toString())
                 R.id.nav_products -> replaceFragment(ProductsFragment(), menuItem.title.toString())
                 R.id.nav_quantity -> replaceFragment(QuantityFragment(), menuItem.title.toString())
-                R.id.nav_logout -> logout()
+                R.id.nav_logout -> logoutAndStartLoadingScreen()
             }
 
             true
@@ -64,8 +65,14 @@ class LandingPage : AppCompatActivity() {
         }
     }
 
-    private fun logout() {
-        TODO("Not yet implemented")
+    private fun logoutAndStartLoadingScreen() {
+        // Implement logout logic
+        // For example, if you're using Firebase Auth, you can call FirebaseAuth.getInstance().signOut()
+        // After logging out, start the loading screen activity
+        startActivity(Intent(this, Splash::class.java))
+
+        // Close all sessions and finish the current activity
+        finish()
     }
 
     private fun replaceFragment(fragment: Fragment, title: String) {

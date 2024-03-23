@@ -5,6 +5,8 @@ data class Product(
     var name: String? = null,
     var description: String? = null,
     var quantity: Int,
-    var unitPrice: String, // Keep unitPrice as String
-    var timestamp: Long // Add timestamp field
+    var unitPrice: String,
+    var timestamp: Long,
+    var productName: String? = null, // Add productName field
+    var totalPrice: Double? = null // Add totalPrice field
 )

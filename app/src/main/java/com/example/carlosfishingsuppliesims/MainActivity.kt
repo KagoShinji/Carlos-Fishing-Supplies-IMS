@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Replace the current fragment with the LoginFragment
+        // Replace the current fragment with the com.example.carlosfishingsuppliesims.LoginFragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main, LoginFragment())

@@ -1,0 +1,71 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Your dialog content -->
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Products"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="16dp"/>
+
+    <!-- Spinner for product selection -->
+    <Spinner
+        android:id="@+id/spinnerProducts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+
+    <!-- Quantity input field -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:padding="16dp"/>
+
+    <!-- Spinner for quantity -->
+    <Spinner
+        android:id="@+id/spinnerQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+
+    <!-- Button for adding sale -->
+    <Button
+        android:id="@+id/btnAddSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Sale"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Added Sales"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="16dp"/>
+
+        <!-- RecyclerView to display added sales -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAddedSales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
