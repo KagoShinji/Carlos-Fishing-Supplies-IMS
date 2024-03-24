@@ -41,10 +41,10 @@ class AddedSalesAdapter(private var addedSalesList: List<Sales>) : RecyclerView.
 
             // Iterate over the list of products in the Sales object
             addedSales.products.forEachIndexed { index, product ->
-                // Append product name and quantity to the text
+                // Append product name, quantity, and price to the text
                 productsText.append("${index + 1}. ${product.name}\n")
                 productsText.append("Quantity: ${product.quantity}\n")
-                productsText.append("Price: ₱${product.unitPrice}\n\n")
+                productsText.append("Price: ₱${product.totalPrice}\n\n") // Assuming totalPrice holds the price
             }
 
             // Set the text to the TextView
@@ -52,6 +52,6 @@ class AddedSalesAdapter(private var addedSalesList: List<Sales>) : RecyclerView.
             quantityTextView.visibility = View.GONE  // Hide quantity TextView if not needed
             priceTextView.visibility = View.GONE  // Hide price TextView if not needed
         }
-
     }
+
 }

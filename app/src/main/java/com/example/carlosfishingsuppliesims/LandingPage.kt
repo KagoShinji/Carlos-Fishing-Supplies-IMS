@@ -1,11 +1,7 @@
 package com.example.carlosfishingsuppliesims
 
-import SalesFragment
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
