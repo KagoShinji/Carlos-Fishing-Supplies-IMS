@@ -68,8 +68,7 @@ class SalesFragment : Fragment() {
 
     private fun showAddSalesDialog() {
         // Inflating the dialog layout
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_sale, null)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_sale, null)
 
         // Fetch references to the EditText and other UI elements
         val spinnerProducts: Spinner = dialogView.findViewById(R.id.spinnerProducts)
@@ -86,8 +85,7 @@ class SalesFragment : Fragment() {
                 for (productSnapshot in snapshot.children) {
                     val productName = productSnapshot.child("name").getValue(String::class.java)
                     val productKey = productSnapshot.key
-                    val productQuantity =
-                        productSnapshot.child("quantity").getValue(Int::class.java)
+                    val productQuantity = productSnapshot.child("quantity").getValue(Int::class.java)
 
                     productName?.let {
                         productNameList.add(it)
@@ -120,9 +118,8 @@ class SalesFragment : Fragment() {
             .setView(dialogView)
             .setTitle("Add Sales")
             .setPositiveButton("Confirm") { dialog, which ->
-                // Call the function to add the selected product to the list
-                addSelectedProduct(productKeyList, spinnerProducts, editTextQuantity)
-                // Send sale data to Firebase
+                // This block is left empty intentionally to avoid automatically adding the product
+                // The product will be added only when the user clicks the "Add" button
                 addSaleToFirebase()
             }
             .setNegativeButton("Cancel") { dialog, which ->
@@ -288,7 +285,7 @@ class SalesFragment : Fragment() {
 
     // Function to get current date and time
     private fun getCurrentDateTime(): String {
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val simpleDateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault())
         val currentDate = Date()
         return simpleDateFormat.format(currentDate)
     }
