@@ -195,6 +195,7 @@ class SalesFragment : Fragment() {
     }
 
     // Function to add sale data to Firebase (internal)
+// Function to add sale data to Firebase (internal)
     private fun addSaleToFirebaseInternal(saleId: String) {
         // Create a hashmap to hold sale data
         val saleData = hashMapOf<String, Any>(
@@ -234,6 +235,28 @@ class SalesFragment : Fragment() {
                         val currentTotalPrice = saleData["totalPrice"] as Double
                         saleData["totalPrice"] = currentTotalPrice + productTotalPrice
 
+                        // Deduct the quantity from the original quantity in the database
+                        val originalQuantity = productSnapshot.child("quantity").getValue(Int::class.java)
+                        if (originalQuantity != null && originalQuantity >= quantity) {
+                            database.child("products").child(productKey)
+                                .child("quantity").setValue(originalQuantity - quantity)
+                                .addOnFailureListener { error ->
+                                    // Handle failure to update quantity
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Error deducting quantity from product: $error",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        } else {
+                            // Handle insufficient quantity error
+                            Toast.makeText(
+                                requireContext(),
+                                "Insufficient quantity for product: $productName",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
                         // Check if all products have been processed
                         if (index == selectedProductsList.size - 1) {
                             // Add the sale data to the Firebase database under the generated saleId
@@ -268,6 +291,7 @@ class SalesFragment : Fragment() {
                 }
         }
     }
+
 
 
 
