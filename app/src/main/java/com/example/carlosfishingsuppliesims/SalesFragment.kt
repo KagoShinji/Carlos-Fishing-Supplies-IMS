@@ -194,7 +194,6 @@ class SalesFragment : Fragment() {
         }
     }
 
-    // Function to add sale data to Firebase (internal)
 // Function to add sale data to Firebase (internal)
     private fun addSaleToFirebaseInternal(saleId: String) {
         // Create a hashmap to hold sale data
