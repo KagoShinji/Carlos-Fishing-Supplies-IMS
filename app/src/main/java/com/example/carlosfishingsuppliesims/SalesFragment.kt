@@ -207,9 +207,9 @@ class SalesFragment : Fragment() {
         var productIndex = 0
 
         // Iterate through the selected products list
-        selectedProductsList.forEach { (productKey, quantity) ->
+        selectedProductsList.forEach { (_, quantity) ->
             // Get product details from Firebase based on the product key
-            database.child("products").child(productKey)
+            database.child("products").child(selectedProductsList[productIndex].first)
                 .get().addOnSuccessListener { productSnapshot ->
                     // Extract product name and unit price from the product snapshot
                     val productName = productSnapshot.child("name").getValue(String::class.java)
@@ -228,9 +228,9 @@ class SalesFragment : Fragment() {
                             "totalPrice" to productTotalPrice
                         )
 
-                        // Add product data to the sale data under the "products" key
+                        // Add product data to the sale data under the "products" key with index as key
                         saleData["products"]?.let {
-                            (it as HashMap<String, Any>)[productKey] = productData
+                            (it as HashMap<String, Any>)[productIndex.toString()] = productData
                         }
 
                         // Increment the product index
