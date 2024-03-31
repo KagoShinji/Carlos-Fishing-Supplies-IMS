@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.carlosfishingsuppliesims.adapter.AddedSalesAdapter
 import com.example.carlosfishingsuppliesims.adapter.SalesAdapter
 import com.example.carlosfishingsuppliesims.models.Product
 import com.example.carlosfishingsuppliesims.models.Sales
@@ -22,6 +23,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlin.random.Random
 
 class SalesFragment : Fragment() {
@@ -29,8 +33,7 @@ class SalesFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var salesAdapter: SalesAdapter
-    private lateinit var addedSalesAdapter: AddedSalesAdapter
-    private lateinit var addedSalesRecyclerView: RecyclerView
+    private val selectedProductsList = mutableListOf<Pair<String, Int>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +52,6 @@ class SalesFragment : Fragment() {
         recyclerViewSales.layoutManager = LinearLayoutManager(requireContext())
         salesAdapter = SalesAdapter(ArrayList())
         recyclerViewSales.adapter = salesAdapter
-
-        // Initialize RecyclerView for added sales
 
         // Fetch data from Firebase for sales
         fetchDataFromFirebase()
@@ -73,6 +74,7 @@ class SalesFragment : Fragment() {
         // Fetch references to the EditText and other UI elements
         val spinnerProducts: Spinner = dialogView.findViewById(R.id.spinnerProducts)
         val editTextQuantity: EditText = dialogView.findViewById(R.id.editTextQuantity)
+        val addButton: Button = dialogView.findViewById(R.id.addButton)
 
         // Fetch product data from Firebase and populate the spinner dynamically
         val productNameList = mutableListOf<String>() // List to hold product names
@@ -113,156 +115,186 @@ class SalesFragment : Fragment() {
             }
         })
 
-        // Building and showing the dialog
+        // Building the dialog
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setTitle("Add Sales")
-            .setPositiveButton("Add") { dialog, which ->
-                val selectedPosition = spinnerProducts.selectedItemPosition
-                if (selectedPosition != AdapterView.INVALID_POSITION) {
-                    val selectedProductName = productNameList[selectedPosition]
-                    val selectedProductKey = productKeyList[selectedPosition]
-                    val selectedQuantity = editTextQuantity.text.toString().toIntOrNull() ?: 0
-                    // Proceed with adding the sale using selectedProductName, selectedProductKey, and selectedQuantity
-                    // For now, let's assume you add it to Firebase
-                    addSaleToFirebase(selectedProductKey, selectedProductName, selectedQuantity)
-                }
+            .setPositiveButton("Confirm") { dialog, which ->
+                // Call the function to add the selected product to the list
+                addSelectedProduct(productKeyList, spinnerProducts, editTextQuantity)
+                // Send sale data to Firebase
+                addSaleToFirebase()
             }
             .setNegativeButton("Cancel") { dialog, which ->
+                // Cancel button simply dismisses the dialog
                 dialog.dismiss()
             }
 
+        // Showing the dialog
         val dialog = dialogBuilder.create()
         dialog.show()
+
+        // Set the "Add" button listener
+        addButton.setOnClickListener {
+            // Call the function to add the selected product to the list
+            addSelectedProduct(productKeyList, spinnerProducts, editTextQuantity)
+        }
+    }
+
+    private fun addSelectedProduct(
+        productKeyList: List<String>,
+        spinner: Spinner,
+        quantityEditText: EditText
+    ) {
+        // Proceed with adding the selected product to the list
+        // Check if any product is selected
+        val selectedPosition = spinner.selectedItemPosition
+        if (selectedPosition != AdapterView.INVALID_POSITION) {
+            val selectedProductName = spinner.selectedItem as String
+            val selectedProductKey = productKeyList[selectedPosition]
+            val selectedQuantity = quantityEditText.text.toString().toIntOrNull() ?: 0
+            // Add selected product and quantity to the list
+            selectedProductsList.add(Pair(selectedProductKey, selectedQuantity))
+            // Notify the user that the product has been added
+            Toast.makeText(
+                requireContext(),
+                "$selectedProductName added to sale.",
+                Toast.LENGTH_SHORT
+            ).show()
+            // Clear the input fields for the next product
+            quantityEditText.text.clear()
+        } else {
+            // Show a message to select a product
+            Toast.makeText(requireContext(), "Please select a product.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
-    private fun addSaleToFirebase(productKey: String, productName: String, quantity: Int) {
-        // Generate a 4-digit unique random number as the sale ID
-        val saleId = generateUniqueSaleId()
+    // Function to send sale data to Firebase
+    private fun addSaleToFirebase() {
+        // Check if there are any selected products
+        if (selectedProductsList.isNotEmpty()) {
+            // Confirmation dialog
+            val confirmDialog = AlertDialog.Builder(requireContext())
+                .setTitle("Confirm Sale")
+                .setMessage("Are you sure you want to add the sale?")
+                .setPositiveButton("Yes") { dialog, which ->
+                    // Proceed to add the sale to the database
+                    val saleId = generateUniqueSaleId()
+                    addSaleToFirebaseInternal(saleId)
+                }
+                .setNegativeButton("No") { dialog, which ->
+                    // Clear the selected products list
+                    selectedProductsList.clear()
+                    // Dismiss the dialog
+                    dialog.dismiss()
+                }
+                .create()
+            confirmDialog.show()
+        } else {
+            // Show a message that no products are selected
+            Toast.makeText(requireContext(), "No products selected.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        // Get a reference to the "sales" node in your Firebase database
-        val salesRef = database.child("sales").child(saleId)
+    // Function to add sale data to Firebase (internal)
+    private fun addSaleToFirebaseInternal(saleId: String) {
+        // Create a hashmap to hold sale data
+        val saleData = hashMapOf<String, Any>(
+            "dateTime" to getCurrentDateTime(), // Add current date and time to the sale data
+            "totalPrice" to 0.00, // Initialize total price to 0.00
+            "products" to hashMapOf<String, Any>() // Initialize an empty hashmap to hold product data
+        )
 
-        // Get a reference to the product in the Firebase database to fetch unitPrice
-        val productRef = database.child("products").child(productKey)
+        // Variable to keep track of the index of the product being processed
+        var productIndex = 0
 
-        // Fetch the unit price of the product
-        productRef.child("unitPrice").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val unitPriceString = snapshot.getValue(String::class.java) ?: "0.0"
-                val unitPrice = unitPriceString.toDoubleOrNull() ?: 0.0
+        // Iterate through the selected products list
+        selectedProductsList.forEach { (productKey, quantity) ->
+            // Get product details from Firebase based on the product key
+            database.child("products").child(productKey)
+                .get().addOnSuccessListener { productSnapshot ->
+                    // Extract product name and unit price from the product snapshot
+                    val productName = productSnapshot.child("name").getValue(String::class.java)
+                    val unitPrice = productSnapshot.child("unitPrice").getValue(String::class.java)?.toDoubleOrNull()
 
-                // Calculate the total price based on the unit price and quantity
-                val totalPrice = unitPrice * quantity
+                    // Check if product name is not empty and unit price is not null
+                    if (!productName.isNullOrBlank() && unitPrice != null) {
+                        // Calculate total price for the product based on quantity and unit price
+                        val productTotalPrice = unitPrice * quantity
 
-                // Create a map to represent the sale data
-                val saleData = mapOf(
-                    "dateTime" to getCurrentDateTime(), // Get current date and time
-                    "totalPrice" to totalPrice, // Total price based on unit price and quantity
-                    "products" to mapOf(
-                        // Use the sale ID as the key under products
-                        saleId to mapOf(
-                            "productName" to productName, // Product name
-                            "quantity" to quantity, // Quantity
-                            "unitPrice" to unitPrice, // Unit price
-                            "totalPrice" to totalPrice // Total price
+                        // Create a hashmap to hold product data
+                        val productData = hashMapOf(
+                            "productName" to productName,
+                            "quantity" to quantity,
+                            "unitPrice" to unitPrice,
+                            "totalPrice" to productTotalPrice
                         )
-                    )
-                )
 
-                // Add the sale data to the Firebase database
-                salesRef.setValue(saleData)
-                    .addOnSuccessListener {
-                        // Sale added successfully
-                        // You can add any further actions here if needed
-                    }
-                    .addOnFailureListener { error ->
-                        // Error occurred while adding the sale
-                        // Handle the error appropriately
-                    }
-
-                // Deduct the sold quantity from the product's quantity in the database
-                database.child("products").child(productKey).child("quantity")
-                    .addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            val currentQuantity = snapshot.getValue(Int::class.java) ?: 0
-                            val newQuantity = currentQuantity - quantity
-                            if (newQuantity >= 0) {
-                                // Update the quantity in the database
-                                database.child("products").child(productKey).child("quantity").setValue(newQuantity)
-                                    .addOnSuccessListener {
-                                        // Quantity updated successfully
-                                    }
-                                    .addOnFailureListener { error ->
-                                        // Error occurred while updating quantity
-                                    }
-                            } else {
-                                // Handle the case where the new quantity becomes negative (out of stock)
-                                // You may want to display a message to the user or take other actions
-                            }
+                        // Add product data to the sale data under the "products" key
+                        saleData["products"]?.let {
+                            (it as HashMap<String, Any>)[productKey] = productData
                         }
 
-                        override fun onCancelled(error: DatabaseError) {
-                            // Handle database error
-                        }
-                    })
-            }
+                        // Increment the product index
+                        productIndex++
 
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database error
-            }
-        })
+                        // Update the total price of the sale
+                        val currentTotalPrice = saleData["totalPrice"] as Double
+                        saleData["totalPrice"] = currentTotalPrice + productTotalPrice
+
+                        // Check if all products have been processed
+                        if (productIndex == selectedProductsList.size) {
+                            // Add the sale data to the Firebase database under the generated saleId
+                            database.child("sales").child(saleId).setValue(saleData)
+                                .addOnSuccessListener {
+                                    // Sale added successfully
+                                    selectedProductsList.clear() // Clear the selected products list
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Sale added successfully.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                .addOnFailureListener { error ->
+                                    // Handle error adding sale to Firebase
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Error adding sale: $error",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                        }
+                    }
+                }
+                .addOnFailureListener { error ->
+                    // Handle error getting product details from Firebase
+                    Toast.makeText(
+                        requireContext(),
+                        "Error getting product details: $error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
     }
 
 
-    private fun deductQuantityFromProducts(productKey: String, quantityToDeduct: Int) {
-        // Get a reference to the product in the Firebase database
-        val productRef = database.child("products").child(productKey)
-
-        // Fetch the current quantity of the product
-        productRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val currentQuantity = snapshot.child("quantity").getValue(Int::class.java) ?: 0
-
-                // Calculate the new quantity after deduction
-                val newQuantity = currentQuantity - quantityToDeduct
-
-                // Update the quantity of the product in the database
-                productRef.child("quantity").setValue(newQuantity)
-                    .addOnSuccessListener {
-                        // Quantity deducted successfully
-                    }
-                    .addOnFailureListener { error ->
-                        // Error occurred while deducting quantity
-                        // Handle the error appropriately
-                    }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database error
-            }
-        })
-    }
+    // Function to generate a unique sale ID
     private fun generateUniqueSaleId(): String {
         // Generate a 4-digit unique random number
         val randomNumber = Random.nextInt(1000, 10000)
         return randomNumber.toString()
     }
 
+    // Function to get current date and time
     private fun getCurrentDateTime(): String {
-        // Implement logic to get current date and time
-        // For example:
-        // val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        // return dateFormat.format(Date())
-        return ""
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val currentDate = Date()
+        return simpleDateFormat.format(currentDate)
     }
 
-    private fun calculateTotalPrice(productKey: String, quantity: Int): Double {
-        // Implement logic to calculate total price based on product key and quantity
-        return 0.00
-    }
 
+    // Function to fetch data from Firebase
     private fun fetchDataFromFirebase() {
         val salesList: MutableList<Sales> = mutableListOf()
         database.child("sales").addValueEventListener(object : ValueEventListener {
@@ -315,10 +347,5 @@ class SalesFragment : Fragment() {
                 // Handle database error
             }
         })
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SalesFragment()
     }
 }
