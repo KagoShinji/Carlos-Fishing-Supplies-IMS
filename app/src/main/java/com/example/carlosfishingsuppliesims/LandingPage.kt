@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
 
 class LandingPage : AppCompatActivity() {
@@ -30,20 +31,22 @@ class LandingPage : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Replace the FrameLayout with the fragment_home initially
-        replaceFragment(HomeFragment(), "Home")
+        // Initialize NavController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         navView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
 
             when (menuItem.itemId) {
-                R.id.nav_home -> replaceFragment(HomeFragment(), menuItem.title.toString())
-                R.id.nav_sales -> replaceFragment(SalesFragment(), menuItem.title.toString())
-                R.id.nav_products -> replaceFragment(ProductsFragment(), menuItem.title.toString())
-                R.id.nav_quantity -> replaceFragment(QuantityFragment(), menuItem.title.toString())
+                R.id.nav_home -> navController.navigate(R.id.homeFragment)
+                R.id.nav_sales -> navController.navigate(R.id.salesFragment)
+                R.id.nav_products -> navController.navigate(R.id.productsFragment)
                 R.id.nav_logout -> logoutAndStartLoadingScreen()
             }
 
+            drawerLayout.closeDrawers()
             true
         }
 
@@ -69,14 +72,5 @@ class LandingPage : AppCompatActivity() {
 
         // Close all sessions and finish the current activity
         finish()
-    }
-
-    private fun replaceFragment(fragment: Fragment, title: String) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout, fragment)
-        fragmentTransaction.commit()
-        drawerLayout.closeDrawers()
-        setTitle(title)
     }
 }

@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="60dp"
+    android:layout_marginHorizontal="20dp"
+    android:orientation="vertical"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home Fragments"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:gravity="center"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/productsNotification"
+            android:layout_width="378dp"
+            android:layout_height="122dp"
+            android:layout_marginTop="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/allProducts"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="18"
+                    android:textSize="60sp"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:id="@+id/productsCart"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/productscart"
+                    android:layout_marginStart="16dp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
 </FrameLayout>
