@@ -35,6 +35,9 @@ class SalesFragment : Fragment() {
     private lateinit var salesAdapter: SalesAdapter
     private val selectedProductsList = mutableListOf<Pair<String, Int>>()
 
+    // Declare quantityEditText as a property of the SalesFragment class
+    private lateinit var quantityEditText: EditText
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,7 +75,7 @@ class SalesFragment : Fragment() {
 
         // Fetch references to the EditText and other UI elements
         val spinnerProducts: Spinner = dialogView.findViewById(R.id.spinnerProducts)
-        val editTextQuantity: EditText = dialogView.findViewById(R.id.editTextQuantity)
+        quantityEditText = dialogView.findViewById(R.id.editTextQuantity) // Initialize quantityEditText here
         val addButton: Button = dialogView.findViewById(R.id.addButton)
 
         // Fetch product data from Firebase and populate the spinner dynamically
@@ -123,7 +126,11 @@ class SalesFragment : Fragment() {
                 addSaleToFirebase()
             }
             .setNegativeButton("Cancel") { dialog, which ->
-                // Cancel button simply dismisses the dialog
+                // Clear the selected products list
+                selectedProductsList.clear()
+                // Clear the input fields for the next product
+                quantityEditText.text.clear() // Use quantityEditText here
+                // Dismiss the dialog
                 dialog.dismiss()
             }
 
@@ -134,7 +141,7 @@ class SalesFragment : Fragment() {
         // Set the "Add" button listener
         addButton.setOnClickListener {
             // Call the function to add the selected product to the list
-            addSelectedProduct(productKeyList, spinnerProducts, editTextQuantity)
+            addSelectedProduct(productKeyList, spinnerProducts, quantityEditText)
         }
     }
 
