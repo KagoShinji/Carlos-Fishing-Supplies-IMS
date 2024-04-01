@@ -3,18 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="60dp"
     android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
     tools:context=".HomeFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productsNotification"
-            android:layout_width="378dp"
-            android:layout_height="122dp"
+            android:layout_width="300dp"
+            android:layout_height="125dp"
             android:layout_marginTop="60dp"
             android:clickable="true"
             android:focusable="true"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/allProducts"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:text="18"
+                    android:textSize="60sp" />
+
+                <ImageView
+                    android:id="@+id/productsCart"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/productscart" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/lowStockNotification"
+            android:layout_width="300dp"
+            android:layout_height="125dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="20dp"
             android:layout_gravity="center_horizontal">
 
             <LinearLayout
@@ -24,22 +77,24 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/allProducts"
+                    android:id="@+id/lowProducts"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:text="18"
+                    android:text="10"
                     android:textSize="60sp"
                     android:gravity="center"/>
 
                 <ImageView
-                    android:id="@+id/productsCart"
+                    android:id="@+id/lowstockcart"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/productscart"
+                    android:src="@drawable/lowstockcart"
                     android:layout_marginStart="16dp"/>
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 </FrameLayout>
