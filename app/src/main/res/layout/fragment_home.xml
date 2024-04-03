@@ -38,7 +38,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:gravity="center"
-                    android:text="18"
+                    android:text="00"
                     android:textSize="60sp" />
 
                 <ImageView
@@ -80,7 +80,7 @@
                     android:id="@+id/lowProducts"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:text="10"
+                    android:text="00"
                     android:textSize="60sp"
                     android:gravity="center"/>
 

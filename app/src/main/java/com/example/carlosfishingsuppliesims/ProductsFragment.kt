@@ -127,21 +127,27 @@ class ProductsFragment : Fragment() {
                 productUnitPrice = String.format("%.2f", priceDouble)
             }
 
-            if (productName.isNotEmpty() && productDescription.isNotEmpty() && productQuantity != null && productUnitPrice.isNotEmpty()) {
+            if (productName?.isNotEmpty() == true && productDescription?.isNotEmpty() == true && productQuantity != null && productUnitPrice?.isNotEmpty() == true) {
                 // Generate a random 4-digit key
                 val productKey = (1000..9999).random().toString()
 
                 // Get current timestamp
                 val timestamp = System.currentTimeMillis()
 
-                // Create product object with timestamp
+                // Set low stock and out of stock alerts based on quantity
+                val lowStock = productQuantity < 5
+                val outOfStock = productQuantity == 0
+
+                // Create product object with timestamp, low stock, and out of stock flags
                 val product = Product(
                     productKey,
                     productName,
                     productDescription,
                     productQuantity,
                     productUnitPrice,
-                    timestamp
+                    timestamp,
+                    lowStock,
+                    outOfStock
                 )
 
                 // Add product to Firebase Realtime Database using the random key
