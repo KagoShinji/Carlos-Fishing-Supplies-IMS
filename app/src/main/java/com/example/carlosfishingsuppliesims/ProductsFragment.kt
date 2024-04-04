@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ class ProductsFragment : Fragment() {
 
     private lateinit var productRecyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
+    private lateinit var searchView: SearchView
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val productsRef: DatabaseReference = database.getReference("products")
 
@@ -39,8 +41,18 @@ class ProductsFragment : Fragment() {
         adapter = MyAdapter()
         productRecyclerView.adapter = adapter // Set adapter to RecyclerView
 
-        // Fetch products from Firebase Realtime Database
-        fetchProducts()
+        // Initialize search view
+        searchView = view.findViewById(R.id.searchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter(newText) // Call the filter method of the adapter
+                return true
+            }
+        })
 
         // Setup FAB for adding products
         val fabAddProduct: FloatingActionButton = view.findViewById(R.id.fab_add_product)
@@ -48,8 +60,12 @@ class ProductsFragment : Fragment() {
             showAddProductDialog()
         }
 
+        // Fetch products from Firebase Realtime Database
+        fetchProducts()
+
         return view
     }
+
 
     private fun fetchProducts() {
         // Show loading spinner
@@ -61,13 +77,10 @@ class ProductsFragment : Fragment() {
                 for (productSnapshot in snapshot.children) {
                     val key = productSnapshot.key ?: ""
                     val name = productSnapshot.child("name").getValue(String::class.java) ?: ""
-                    val description =
-                        productSnapshot.child("description").getValue(String::class.java) ?: ""
+                    val description = productSnapshot.child("description").getValue(String::class.java) ?: ""
                     val quantity = productSnapshot.child("quantity").getValue(Int::class.java) ?: 0
-                    val unitPrice =
-                        productSnapshot.child("unitPrice").getValue(String::class.java) ?: "0.0"
-                    val timestamp =
-                        productSnapshot.child("timestamp").getValue(Long::class.java) ?: 0
+                    val unitPrice = productSnapshot.child("unitPrice").getValue(String::class.java) ?: "0.0"
+                    val timestamp = productSnapshot.child("timestamp").getValue(Long::class.java) ?: 0
                     val product = Product(key, name, description, quantity, unitPrice, timestamp)
                     productsList.add(product)
                 }
@@ -94,15 +107,11 @@ class ProductsFragment : Fragment() {
     private fun showAddProductDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_product, null)
         val editTextProductName = dialogView.findViewById<EditText>(R.id.editTextProductName)
-        val editTextProductDescription =
-            dialogView.findViewById<EditText>(R.id.editTextProductDescription)
-        val editTextProductQuantity =
-            dialogView.findViewById<EditText>(R.id.editTextProductQuantity)
-        val editTextProductUnitPrice =
-            dialogView.findViewById<EditText>(R.id.editTextProductUnitPrice)
+        val editTextProductDescription = dialogView.findViewById<EditText>(R.id.editTextProductDescription)
+        val editTextProductQuantity = dialogView.findViewById<EditText>(R.id.editTextProductQuantity)
+        val editTextProductUnitPrice = dialogView.findViewById<EditText>(R.id.editTextProductUnitPrice)
         val buttonAddProduct = dialogView.findViewById<Button>(R.id.buttonAddProduct)
-        val closeButton =
-            dialogView.findViewById<TextView>(R.id.close) // TextView acting as a close button
+        val closeButton = dialogView.findViewById<TextView>(R.id.close) // TextView acting as a close button
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Add Product")

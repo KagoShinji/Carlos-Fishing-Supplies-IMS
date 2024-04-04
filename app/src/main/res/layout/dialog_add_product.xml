@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Product Description"
+        android:layout_marginTop="10dp"
         android:inputType="text" />
 
     <EditText
@@ -26,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Quantity"
+        android:layout_marginTop="10dp"
         android:inputType="number" />
 
     <EditText
@@ -33,13 +35,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Unit Price"
+        android:layout_marginTop="10dp"
         android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/buttonAddProduct"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Product" />
+        android:layout_marginTop="10dp"
+        android:text="Add Product"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/blue"/>
 
     <TextView
         android:id="@+id/close"

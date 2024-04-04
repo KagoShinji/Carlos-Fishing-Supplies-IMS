@@ -52,10 +52,17 @@ class LoginFragment : Fragment() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Login successful, navigate to LandingPage
-                    hideProgressBar()
-                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    navigateToLandingPage()
+                    val user = auth.currentUser
+                    if (user != null && user.isEmailVerified) {
+                        // User is signed in and email is verified, navigate to LandingPage
+                        hideProgressBar()
+                        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                        navigateToLandingPage()
+                    } else {
+                        // Email is not verified, show a message to the user
+                        hideProgressBar()
+                        Toast.makeText(requireContext(), "Email is not verified. Please check your email for verification link.", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     // Login failed, display an error message to the user
                     hideProgressBar()

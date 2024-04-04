@@ -5,10 +5,39 @@
     android:layout_height="match_parent"
     tools:context=".ProductsFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Products"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:textSize="50sp">
+        </TextView>
+
+    </LinearLayout>
+
+    <SearchView
+        android:layout_marginTop="140dp"
+        android:layout_marginHorizontal="16dp"
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:queryHint="Search products"
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_view_bg"/> <!-- Set custom background -->
+
+
     <androidx.recyclerview.widget.RecyclerView
 
         tools:listitem="@layout/product_item"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/add" />
+        android:src="@drawable/add"
+        android:backgroundTint="@color/white"/>
 
 
 </FrameLayout>

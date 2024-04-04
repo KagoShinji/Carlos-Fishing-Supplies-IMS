@@ -5,22 +5,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="60dp"
-    android:layout_marginHorizontal="20dp"
-    android:orientation="vertical"
-    android:layout_gravity="center_horizontal"
     tools:context=".HomeFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center_horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dashboard"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:textSize="50sp">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homeButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productsNotification"
-            android:layout_width="300dp"
-            android:layout_height="125dp"
-            android:layout_marginTop="60dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:clickable="true"
             android:focusable="true"
             app:cardElevation="8dp"
@@ -31,22 +50,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/allProducts"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textSize="60sp" />
+                android:layout_margin="10dp">
 
                 <ImageView
                     android:id="@+id/productsCart"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/productscart" />
+
+                <TextView
+                    android:id="@+id/allProducts"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="-"
+                    android:textSize="50sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRODUCTS"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:layout_gravity="center_horizontal">
+                </TextView>
 
             </LinearLayout>
 
@@ -57,44 +96,229 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_marginHorizontal="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/lowStockNotification"
-            android:layout_width="300dp"
-            android:layout_height="125dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:clickable="true"
             android:focusable="true"
             app:cardElevation="8dp"
-            app:cardCornerRadius="20dp"
-            android:layout_gravity="center_horizontal">
+            app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LOW STOCK"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:layout_gravity="center_horizontal">
+                </TextView>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/productLowCart"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/lowstockcart"/>
 
                 <TextView
                     android:id="@+id/lowProducts"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:text="00"
-                    android:textSize="60sp"
-                    android:gravity="center"/>
-
-                <ImageView
-                    android:id="@+id/lowstockcart"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/lowstockcart"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="-"
+                    android:textSize="50sp" />
 
             </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homeButtons2nd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/outOfStockNotification"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="20dp"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:id="@+id/outOfStockCart"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/outstockcart" />
+
+                    <TextView
+                        android:id="@+id/allNoStock"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="-"
+                        android:textSize="50sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OUT OF STOCK"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="21sp"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal">
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/salesNotification"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SALES"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        android:layout_gravity="center_horizontal">
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:id="@+id/salesCart"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/salesnotification"/>
+
+                    <TextView
+                        android:id="@+id/allSales"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="-"
+                        android:textSize="50sp" />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="end">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="430dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="15dp">
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
 
 </FrameLayout>
