@@ -23,11 +23,6 @@
             android:icon="@drawable/orders">
 
         </item>
-        <item
-            android:id="@+id/nav_report"
-            android:title="Report"
-            android:icon="@drawable/stats">
-        </item>
 
     </group>
 

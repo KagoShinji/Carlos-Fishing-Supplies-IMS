@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Products"
+            android:textStyle="bold"
             android:layout_marginStart="16dp"
             android:textColor="@color/white"
             android:textSize="50sp">
@@ -28,7 +29,6 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:queryHint="Search products"
         android:iconifiedByDefault="false"
         android:background="@drawable/search_view_bg"/> <!-- Set custom background -->

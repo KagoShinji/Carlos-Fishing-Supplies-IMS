@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carlosfishingsuppliesims.R
-import com.example.carlosfishingsuppliesims.models.Product
 import com.example.carlosfishingsuppliesims.models.Sales
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SalesAdapter(private var salesList: List<Sales>) : RecyclerView.Adapter<SalesAdapter.ViewHolder>() {
+
+    private var filteredSalesList: List<Sales> = salesList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sales_item, parent, false)
@@ -18,16 +21,39 @@ class SalesAdapter(private var salesList: List<Sales>) : RecyclerView.Adapter<Sa
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val sales = salesList[position]
+        val sales = filteredSalesList[position]
         holder.bind(sales)
     }
 
     override fun getItemCount(): Int {
-        return salesList.size
+        return filteredSalesList.size
     }
 
     fun updateData(newSalesList: List<Sales>) {
         salesList = newSalesList
+        filterSalesByDateTime("") // Reset filter
+    }
+
+    fun filterSalesByDateTime(query: String) {
+        filteredSalesList = if (query.isEmpty()) {
+            salesList
+        } else {
+            salesList.filter { sale ->
+                // Parse the date string to extract month, date, and time
+                val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault())
+                val date = dateFormat.parse(sale.dateTime)
+
+                // Format date and time strings for comparison
+                val month = SimpleDateFormat("MMMM", Locale.getDefault()).format(date)
+                val fullDate = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(date)
+                val time = SimpleDateFormat("hh:mma", Locale.getDefault()).format(date)
+
+                // Check if any part of the date/time matches the search query
+                month.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault())) ||
+                        fullDate.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault())) ||
+                        time.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault()))
+            }
+        }
         notifyDataSetChanged()
     }
 

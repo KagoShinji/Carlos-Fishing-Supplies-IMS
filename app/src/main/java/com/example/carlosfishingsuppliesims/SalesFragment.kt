@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -34,6 +35,7 @@ class SalesFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var salesAdapter: SalesAdapter
     private val selectedProductsList = mutableListOf<Pair<String, Int>>()
+    private lateinit var searchView: SearchView
 
     // Declare quantityEditText as a property of the SalesFragment class
     private lateinit var quantityEditText: EditText
@@ -59,12 +61,26 @@ class SalesFragment : Fragment() {
         // Fetch data from Firebase for sales
         fetchDataFromFirebase()
 
+
         // Initialize FloatingActionButton
         val fabAddSales: FloatingActionButton = view.findViewById(R.id.fabAddSales)
         fabAddSales.setOnClickListener {
             // Open the add sales dialog
             showAddSalesDialog()
         }
+
+        // Initialize SearchView
+        searchView = view.findViewById(R.id.searchViewSales)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                salesAdapter.filterSalesByDateTime(newText ?: "")
+                return true
+            }
+        })
 
         return view
     }

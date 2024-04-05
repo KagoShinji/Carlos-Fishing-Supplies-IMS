@@ -5,10 +5,38 @@
     android:layout_height="match_parent"
     tools:context=".SalesFragment">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sales"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="50sp">
+        </TextView>
+
+    </LinearLayout>
+
+    <SearchView
+        android:layout_marginTop="140dp"
+        android:layout_marginHorizontal="16dp"
+        android:id="@+id/searchViewSales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search products"
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_view_bg"/>
+
     <androidx.recyclerview.widget.RecyclerView
 
         tools:listitem="@layout/sales_item"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
         android:id="@+id/recyclerViewSales"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

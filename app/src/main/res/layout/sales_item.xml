@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="8dp"
-    android:layout_margin="16dp">
+    app:cardElevation="50dp"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,19 +25,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sales ID: "
+                android:text="SALES ID: "
                 android:textColor="@color/blue"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/salesID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="Arya"
                 android:textColor="@color/blue"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -51,19 +50,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product: "
+                android:text="PRODUCT/S: "
                 android:textColor="@color/blue"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/productsList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="Arya"
                 android:textColor="@color/blue"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -82,19 +80,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Time: "
+                android:text="DATE TIME: "
                 android:textColor="@color/blue"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/salesDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="Stark"
+                android:gravity="center"
                 android:textColor="@color/blue"
-                android:textSize="20sp"/>
+                android:textSize="22sp"/>
 
         </LinearLayout>
 
@@ -107,19 +105,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Price: "
+                android:text="TOTAL PRICE: "
                 android:textColor="@color/blue"
-                android:textSize="26sp"
+                android:textSize="25sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/salesPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="20.00"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
         </LinearLayout>
 

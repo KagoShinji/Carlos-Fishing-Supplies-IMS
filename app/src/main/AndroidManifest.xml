@@ -14,7 +14,7 @@
         tools:targetApi="31" >
         <!-- LandingPage as the launcher activity -->
         <activity
-            android:name=".Splash"
+            android:name=".LandingPage"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity> <!-- Other activities -->
         <activity
-            android:name=".LandingPage"
+            android:name=".Splash"
             android:exported="false"
             android:theme="@style/Theme.CarlosFishingSuppliesIMS" />
         <activity

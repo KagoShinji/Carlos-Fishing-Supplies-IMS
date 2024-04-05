@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dashboard"
+            android:textStyle="bold"
             android:layout_marginStart="16dp"
             android:textColor="@color/white"
             android:textSize="50sp">
@@ -38,8 +39,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productsNotification"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:clickable="true"
             android:focusable="true"
             app:cardElevation="8dp"
@@ -54,19 +55,19 @@
 
                 <ImageView
                     android:id="@+id/productsCart"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/productscart" />
 
                 <TextView
                     android:id="@+id/allProducts"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:text="-"
-                    android:textSize="50sp" />
+                    android:textSize="40sp" />
 
             </LinearLayout>
 
@@ -83,7 +84,7 @@
                     android:text="PRODUCTS"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_gravity="center_horizontal">
                 </TextView>
 
@@ -100,8 +101,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/lowStockNotification"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:clickable="true"
             android:focusable="true"
             app:cardElevation="8dp"
@@ -120,7 +121,7 @@
                     android:text="LOW STOCK"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_gravity="center_horizontal">
                 </TextView>
 
@@ -134,19 +135,19 @@
 
                 <ImageView
                     android:id="@+id/productLowCart"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/lowstockcart"/>
 
                 <TextView
                     android:id="@+id/lowProducts"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:text="-"
-                    android:textSize="50sp" />
+                    android:textSize="40sp" />
 
             </LinearLayout>
 
@@ -162,7 +163,7 @@
         android:id="@+id/homeButtons2nd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="225dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -173,8 +174,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/outOfStockNotification"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:cardElevation="8dp"
@@ -189,19 +190,19 @@
 
                     <ImageView
                         android:id="@+id/outOfStockCart"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/outstockcart" />
 
                     <TextView
                         android:id="@+id/allNoStock"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:text="-"
-                        android:textSize="50sp" />
+                        android:textSize="40sp" />
 
                 </LinearLayout>
 
@@ -218,7 +219,7 @@
                         android:text="OUT OF STOCK"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="21sp"
+                        android:textSize="17sp"
                         android:gravity="center"
                         android:layout_gravity="center_horizontal">
                     </TextView>
@@ -236,8 +237,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/salesNotification"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:cardElevation="8dp"
@@ -256,7 +257,7 @@
                         android:text="SALES"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:layout_gravity="center_horizontal">
                     </TextView>
 
@@ -270,19 +271,19 @@
 
                     <ImageView
                         android:id="@+id/salesCart"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/salesnotification"/>
 
                     <TextView
                         android:id="@+id/allSales"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:text="-"
-                        android:textSize="50sp" />
+                        android:textSize="40sp" />
 
                 </LinearLayout>
 
@@ -299,26 +300,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_gravity="end">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="320dp"
-            android:layout_height="200dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="430dp">
+        android:layout_gravity="end"
+        android:layout_marginTop="370dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDashboard"
+                tools:listitem="@layout/dashboard_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="15dp">
+                android:layout_gravity="center">
             </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.cardview.widget.CardView>
-
     </LinearLayout>
-
-
 </FrameLayout>

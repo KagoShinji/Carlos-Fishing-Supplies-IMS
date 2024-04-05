@@ -9,6 +9,9 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.carlosfishingsuppliesims.adapter.DashboardAdapter
 
 class HomeFragment : Fragment() {
 
@@ -18,6 +21,8 @@ class HomeFragment : Fragment() {
     private lateinit var allSalesTextView: TextView
     private lateinit var productsRef: DatabaseReference
     private lateinit var salesRef: DatabaseReference
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var dashboardAdapter: DashboardAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +38,7 @@ class HomeFragment : Fragment() {
 
         productsRef = FirebaseDatabase.getInstance().getReference("products")
         salesRef = FirebaseDatabase.getInstance().getReference("sales")
+
 
         // Listen for changes in the database and update the TextViews accordingly
         productsRef.addValueEventListener(object : ValueEventListener {
@@ -111,6 +117,13 @@ class HomeFragment : Fragment() {
         salesNotificationCardView.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_salesFragment)
         }
+        // Initialize RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerViewDashboard)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize DashboardAdapter
+        dashboardAdapter = DashboardAdapter(requireContext())
+        recyclerView.adapter = dashboardAdapter
 
         return view
     }

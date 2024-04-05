@@ -31,8 +31,13 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ProductViewHolder>() {
         productList.clear()
         productList.addAll(products)
         productListFull = ArrayList(products)
+
+        // Sort the productList based on quantity, placing items with 0 quantity first, followed by items with quantities below 5
+        productList.sortWith(compareByDescending<Product> { it.quantity == 0 }.thenBy { it.quantity })
+
         notifyDataSetChanged()
     }
+
 
     fun filter(text: String?) {
         productList.clear()
@@ -63,17 +68,18 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ProductViewHolder>() {
             quantityTextView.text = product.quantity.toString()
             unitPriceTextView.text = product.unitPrice
 
-            lowStockIndicator.visibility = if (product.quantity < 5 && product.quantity > 0) {
-                View.VISIBLE
+            // Set the visibility of the nostockIndicator and lowstockIndicator accordingly
+            if (product.quantity == 0) {
+                noStockIndicator.visibility = View.VISIBLE
+                lowStockIndicator.visibility = View.GONE
+            } else if (product.quantity < 5 && product.quantity > 0) {
+                noStockIndicator.visibility = View.GONE
+                lowStockIndicator.visibility = View.VISIBLE
             } else {
-                View.GONE
-            }
-
-            noStockIndicator.visibility = if (product.quantity == 0) {
-                View.VISIBLE
-            } else {
-                View.GONE
+                noStockIndicator.visibility = View.GONE
+                lowStockIndicator.visibility = View.GONE
             }
         }
     }
 }
+
