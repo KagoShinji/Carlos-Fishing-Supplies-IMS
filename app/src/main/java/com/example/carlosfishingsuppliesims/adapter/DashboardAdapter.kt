@@ -47,7 +47,7 @@ class DashboardAdapter(private val context: Context) : RecyclerView.Adapter<Dash
 
         // Query to fetch products based on timestamp (assuming timestamp is stored as a child node)
         val query: Query =
-            productsRef.orderByChild("timestamp").limitToLast(10) // Fetching 10 latest products
+            productsRef.orderByChild("timestamp").limitToLast(5) // Fetching 10 latest products
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

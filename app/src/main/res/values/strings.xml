@@ -10,6 +10,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="App">Carlos Fishing Supplies IMS</string>
+    <string name="recentlyadded">RECENTLY ADDED</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
