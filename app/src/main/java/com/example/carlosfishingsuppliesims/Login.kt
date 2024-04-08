@@ -2,10 +2,8 @@ package com.example.carlosfishingsuppliesims
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -13,27 +11,22 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginFragment : Fragment() {
+class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+
         auth = FirebaseAuth.getInstance()
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-
-        val emailEditText = view.findViewById<EditText>(R.id.loginEmail)
-        val passwordEditText = view.findViewById<EditText>(R.id.loginPassword)
-        val loginButton = view.findViewById<Button>(R.id.btnLogin)
-        val forgotPasswordTextView = view.findViewById<TextView>(R.id.forgotPassword)
-        progressBar = view.findViewById(R.id.progressBar)
+        val emailEditText = findViewById<EditText>(R.id.loginEmail)
+        val passwordEditText = findViewById<EditText>(R.id.loginPassword)
+        val loginButton = findViewById<Button>(R.id.btnLogin)
+        val forgotPasswordTextView = findViewById<TextView>(R.id.forgotPassword)
+        progressBar = findViewById(R.id.progressBar)
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
@@ -43,38 +36,37 @@ class LoginFragment : Fragment() {
                 showProgressBar()
                 loginUser(email, password)
             } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
 
         // Click listener for the "com.example.carlosfishingsuppliesims.Forgot password" TextView
         forgotPasswordTextView.setOnClickListener {
-            // Handle navigation to the forgot password screen
-            navigateToForgotPassword()
+            // Handle navigation to ForgotPassword activity
+            val intent = Intent(this, Forgot::class.java)
+            startActivity(intent)
         }
-
-        return view
     }
 
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null && user.isEmailVerified) {
                         // User is signed in and email is verified, navigate to LandingPage
                         hideProgressBar()
-                        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                         navigateToLandingPage()
                     } else {
                         // Email is not verified, show a message to the user
                         hideProgressBar()
-                        Toast.makeText(requireContext(), "Email is not verified. Please check your email for verification link.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Email is not verified. Please check your email for verification link.", Toast.LENGTH_LONG).show()
                     }
                 } else {
                     // Login failed, display an error message to the user
                     hideProgressBar()
-                    Toast.makeText(requireContext(), "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -88,14 +80,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToLandingPage() {
-        val intent = Intent(requireContext(), LandingPage::class.java)
+        val intent = Intent(this, LandingPage::class.java)
         startActivity(intent)
-        requireActivity().finish() // Optional: finish the current activity after navigating
-    }
-
-    private fun navigateToForgotPassword() {
-        // Handle navigation to the forgot password screen here
-        val intent = Intent(requireContext(), Forgot::class.java)
-        startActivity(intent)
+        finish() // Finish this activity after navigating
     }
 }

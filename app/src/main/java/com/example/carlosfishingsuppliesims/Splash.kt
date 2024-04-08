@@ -19,12 +19,12 @@ class Splash : AppCompatActivity() {
             insets
         }
 
-        // Add a delay before directing to MainActivity (optional)
+        // Add a delay before directing to Login activity (optional)
         val delayMillis = 3000 // 3 seconds delay (adjust as needed)
-        val mainActivityIntent = Intent(this, MainActivity::class.java)
-        // Post a delayed action to start MainActivity after delayMillis
+        val loginIntent = Intent(this, Login::class.java)
+        // Post a delayed action to start Login activity after delayMillis
         findViewById<View>(R.id.main).postDelayed({
-            startActivity(mainActivityIntent)
+            startActivity(loginIntent)
             finish() // Finish this activity to prevent going back to Splash using back button
         }, delayMillis.toLong())
     }

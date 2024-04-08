@@ -4,23 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterFragment"
-    android:orientation="vertical"
-    android:background="@color/white">
+    tools:context=".Login"
+    android:background="@android:color/white">
 
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/back"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Main content layout -->
+
+    <!-- Welcome TextView -->
+
+    <!-- Logo ImageView -->
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif"
+        android:text="Hello there, Welcome!"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022">
-
-    </ImageView>
+        app:layout_constraintTop_toBottomOf="@id/logoImage" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -32,13 +40,14 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42">
+        app:layout_constraintVertical_bias="0.637">
 
+        <!-- EditText for email -->
         <EditText
-            android:id="@+id/registerEmail"
+            android:id="@+id/loginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -49,8 +58,9 @@
             android:textColor="@color/blue"
             android:textSize="15sp" />
 
+        <!-- EditText for password -->
         <EditText
-            android:id="@+id/registerPassword"
+            android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -61,66 +71,53 @@
             android:textColor="@color/blue"
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/blue"
-            android:padding="15dp"
-            android:text="Confirm"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
-
+        <!-- com.example.carlosfishingsuppliesims.Forgot password TextView -->
         <TextView
-            android:id="@+id/login_menu"
+            android:id="@+id/forgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:clickable="true"
-            android:text="Already have an account?"
+            android:text="Forgot password?"
             android:textAllCaps="true"
             android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold" />
 
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/blue"
+            android:padding="15dp"
+            android:text="Login"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/registerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="sans-serif"
-        android:text="Register"
-        android:textColor="@color/blue"
-        android:textSize="35sp"
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="193dp"
+        android:layout_height="183dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146">
+        app:layout_constraintVertical_bias="0.105"
+        app:srcCompat="@drawable/carlos" />
 
-    </TextView>
-
-    <TextView
-        android:id="@+id/textRegister"
+    <!-- ProgressBar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="sans-serif"
-        android:text="Create your new account"
-        android:textColor="@color/blue"
-        android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

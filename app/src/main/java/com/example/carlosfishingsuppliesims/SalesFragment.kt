@@ -166,28 +166,39 @@ class SalesFragment : Fragment() {
         spinner: Spinner,
         quantityEditText: EditText
     ) {
-        // Proceed with adding the selected product to the list
         // Check if any product is selected
         val selectedPosition = spinner.selectedItemPosition
         if (selectedPosition != AdapterView.INVALID_POSITION) {
             val selectedProductName = spinner.selectedItem as String
             val selectedProductKey = productKeyList[selectedPosition]
             val selectedQuantity = quantityEditText.text.toString().toIntOrNull() ?: 0
-            // Add selected product and quantity to the list
-            selectedProductsList.add(Pair(selectedProductKey, selectedQuantity))
-            // Notify the user that the product has been added
-            Toast.makeText(
-                requireContext(),
-                "$selectedProductName added to sale.",
-                Toast.LENGTH_SHORT
-            ).show()
-            // Clear the input fields for the next product
-            quantityEditText.text.clear()
+
+            // Check if the selected quantity is greater than zero
+            if (selectedQuantity > 0) {
+                // Add selected product and quantity to the list
+                selectedProductsList.add(Pair(selectedProductKey, selectedQuantity))
+                // Notify the user that the product has been added
+                Toast.makeText(
+                    requireContext(),
+                    "$selectedProductName added to sale.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // Clear the input fields for the next product
+                quantityEditText.text.clear()
+            } else {
+                // Show a message indicating that the quantity must be greater than zero
+                Toast.makeText(
+                    requireContext(),
+                    "Quantity must be greater than zero for $selectedProductName.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         } else {
             // Show a message to select a product
             Toast.makeText(requireContext(), "Please select a product.", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     // Function to send sale data to Firebase
@@ -217,7 +228,7 @@ class SalesFragment : Fragment() {
         }
     }
 
-// Function to add sale data to Firebase (internal)
+    // Function to add sale data to Firebase (internal)
     private fun addSaleToFirebaseInternal(saleId: String) {
         // Create a hashmap to hold sale data
         val saleData = hashMapOf<String, Any>(
@@ -291,6 +302,8 @@ class SalesFragment : Fragment() {
                                         "Sale added successfully.",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    // Refresh the fragment
+                                    fetchDataFromFirebase()
                                 }
                                 .addOnFailureListener { error ->
                                     // Handle error adding sale to Firebase
@@ -313,9 +326,6 @@ class SalesFragment : Fragment() {
                 }
         }
     }
-
-
-
 
     // Function to generate a unique sale ID
     private fun generateUniqueSaleId(): String {

@@ -30,7 +30,9 @@ class SalesAdapter(private var salesList: List<Sales>) : RecyclerView.Adapter<Sa
     }
 
     fun updateData(newSalesList: List<Sales>) {
-        salesList = newSalesList
+        // Sort the new sales list by dateTime in descending order
+        val sortedSalesList = newSalesList.sortedByDescending { SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault()).parse(it.dateTime) }
+        salesList = sortedSalesList
         filterSalesByDateTime("") // Reset filter
     }
 

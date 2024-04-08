@@ -4,35 +4,27 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-
     <!-- Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Products"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="16dp" />
+        android:textStyle="bold" />
 
     <!-- Spinner for product selection -->
     <Spinner
         android:id="@+id/spinnerProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp" />
+        android:padding="10dp" />
 
     <!-- Quantity input field -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quantity"
-        android:padding="16dp" />
+        android:padding="10dp" />
 
     <!-- EditText for quantity input -->
     <EditText
@@ -52,13 +44,5 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/blue"/>
 
-    <!-- Container for selected products -->
-    <LinearLayout
-        android:id="@+id/selectedProductsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp" />
 
-</LinearLayout>
 </LinearLayout>
